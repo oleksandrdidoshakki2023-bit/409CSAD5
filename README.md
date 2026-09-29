@@ -27,3 +27,5 @@
 ```bash
 mvn test
 mvn package
+java -cp target/classes edu.lab.hello.HelloWorld
+```

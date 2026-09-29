@@ -1,118 +1,46 @@
 ---
-name: build-and-test
-description: "Use when configuring Maven, Java compilation, JUnit tests, or checking project build and test results."
+name: project-scaffold
+description: "Use when creating or checking the initial Java Hello World project structure, source code, README, or .gitignore."
 ---
 
-# Build and Test
+# Project Scaffold
 
 ## Призначення
 
-Налаштувати збірку Java-проєкту через Maven і юніт-тестування через JUnit 5.
+Створити початкову структуру кросплатформного Java Hello World проєкту, початковий README та `.gitignore`.
 
-## Передумови
+## Вхідні дані
 
-- Існує вихідний код `src/main/java/edu/lab/hello/HelloWorld.java`.
-- Проєкт має пакет `edu.lab.hello`.
-- Доступні JDK 17 або новіший і Maven.
-- Перед зміною перевір, чи вже існує `pom.xml`; не перезаписуй наявний файл без підтвердження.
+- Мова: Java.
+- Назва проєкту: `hello-world-java`.
+- Пакет: `edu.lab.hello`.
 
-## Виходи
+Якщо назва або пакет не вказані, попроси уточнення перед створенням файлів.
+
+## Результат
 
 Створи або доповни:
 
-- `pom.xml` з координатами проєкту, Java release 17, JUnit Jupiter і Maven Surefire Plugin.
-- `src/main/java/edu/lab/hello/BasicAddition.java` з методом додавання двох цілих чисел.
-- `src/test/java/edu/lab/hello/BasicAdditionTest.java` з JUnit-тестом `BasicAddition`, який перевіряє, що `2 + 3` дорівнює `5`.
-- `src/test/java/edu/lab/hello/HelloWorldTest.java`, який перевіряє, що `HelloWorld.greeting()` повертає `Hello, World!`.
+- `src/main/java/edu/lab/hello/HelloWorld.java` із методом `greeting()`, що повертає `Hello, World!`, і `main`, який виводить це повідомлення.
+- `README.md` з описом Java-проєкту, Maven, JUnit, запуску AI-агента, тестування та запуску застосунку.
+- `.gitignore` з правилами для `target/`, `build/`, `*.class` і `.env`.
 
-Використовуй узгоджену версію JUnit 5 і налаштуй Surefire так, щоб Maven виявляв та запускав тести.
+У README наведи команди:
+
+```bash
+mvn package
+java -cp target/classes edu.lab.hello.HelloWorld
+```
+
+Якщо README уже існує, збережи всі наявні дані студента, групи й корисний текст; доповнюй, а не замінюй файл повністю.
 
 ## Перевірка
 
-Із кореня проєкту виконай:
+- Переконайся, що Java-файл існує, має пакет `edu.lab.hello`, `greeting()` і `main`.
+- Переконайся, що README містить команди складання та запуску застосунку.
+- Переконайся, що `.gitignore` виключає `target/`.
+- Не запускай Maven-збірку на цьому етапі; її виконує skill `build-and-test`.
 
-```bash
-mvn test
-mvn package---
-name: agent-customization
-user-invocable: false # don't show as slash command, we have sepcialized create-agent, create-instructions, create-hook prompts for that
-description: '**WORKFLOW SKILL** — Create, update, review, fix, or debug VS Code agent customization files (.instructions.md, .prompt.md, .agent.md, SKILL.md, copilot-instructions.md, AGENTS.md). USE FOR: saving coding preferences; troubleshooting why instructions/skills/agents are ignored or not invoked; configuring applyTo patterns; defining tool restrictions; creating custom agent modes or specialized workflows; packaging domain knowledge; fixing YAML frontmatter syntax. DO NOT USE FOR: general coding questions (use default agent); runtime debugging or error diagnosis; MCP server configuration (use MCP docs directly); VS Code extension development. INVOKES: file system tools (read/write customization files), ask-questions tool (interview user for requirements), subagents for codebase exploration. FOR SINGLE OPERATIONS: For quick YAML frontmatter fixes or creating a single file from a known pattern, edit the file directly — no skill needed.'
----
+## Помилки та повторний запуск
 
-# Agent Customization
-
-## Decision Flow
-
-| Primitive | When to Use |
-|-----------|-------------|
-| agent instructions | Always-on, applies everywhere in the project |
-| File Instructions | Explicit via `applyTo` patterns, or on-demand via `description` |
-| MCP | Integrates external systems, APIs, or data |
-| Hooks | Deterministic shell commands at agent lifecycle points (block tools, auto-format, inject context) |
-| Custom Agents | Subagents for context isolation, or multi-stage workflows with tool restrictions |
-| Prompts | Single focused task with parameterized inputs |
-| Skills | On-demand workflow with bundled assets (scripts/templates) |
-
-## Quick Reference
-
-Consult the reference docs for templates, domain examples, advanced frontmatter options, asset organization, anti-patterns, and creation checklists. If the references are not enough, load the official documentation links for each primitive.
-
-| Type | File | Location | Reference |
-|------|------|----------|-----------|
-| agent instructions | `copilot-instructions.md`, `AGENTS.md` | `.github/` or root | [Link](./references/agent-instructions.md) |
-| File Instructions | `*.instructions.md` | `.github/instructions/` | [Link](./references/instructions.md) |
-| Prompts | `*.prompt.md` | `.github/prompts/` | [Link](./references/prompts.md) |
-| Hooks | `*.json` | `.github/hooks/` | [Link](./references/hooks.md) |
-| Custom Agents | `*.agent.md` | `.github/agents/` | [Link](./references/agents.md) |
-| Skills | `SKILL.md` | `.github/skills/<name>/`, `.agents/skills/<name>/`, `.claude/skills/<name>/` | [Link](./references/skills.md) |
-
-**User-level**: `{{VSCODE_USER_PROMPTS_FOLDER}}/` (*.prompt.md, *.instructions.md, *.agent.md; not skills)
-Customizations roam with user's settings sync
-
-## Creation Process
-
-If you need to explore or validate patterns in the codebase, use a read-only subagent. If the ask-questions tool is available, use it to interview the user and clarify requirements.
-
-Follow these steps when creating any customization file.
-
-### 1. Determine Scope
-
-Ask the user where they want the customization:
-- **Workspace**: For project-specific, team-shared customizations → `.github/` folder
-- **User profile**: For personal, cross-workspace customizations → `{{VSCODE_USER_PROMPTS_FOLDER}}/`
-
-### 2. Choose the Right Primitive
-
-Use the Decision Flow above to select the appropriate file type based on the user's need.
-
-### 3. Create the File
-
-Create the file directly at the appropriate path:
-- Use the location tables in each reference file
-- Include required frontmatter as needed
-- Add the body content following the templates
-
-### 4. Validate
-
-After creating:
-- Confirm the file is in the correct location
-- Verify frontmatter syntax (YAML between `---` markers)
-- Check that `description` is present and meaningful
-
-## Edge Cases
-
-**Instructions vs Skill?** Does this apply to *most* work, or *specific* tasks? Most → Instructions. Specific → Skill.
-
-**Skill vs Prompt?** Both appear as slash commands in chat (type `/`). Multi-step workflow with bundled assets → Skill. Single focused task with inputs → Prompt.
-
-**Skill vs Custom Agent?** Same capabilities for all steps → Skill. Need context isolation (subagent returns single output) or different tool restrictions per stage → Custom Agent.
-
-**Hooks vs Instructions?** Instructions *guide* agent behavior (non-deterministic). Hooks *enforce* behavior via shell commands at lifecycle events like `PreToolUse` or `PostToolUse` — they can block operations, require approval, or run formatters deterministically. Hooks can be defined in standalone `.json` files (see [hooks reference](./references/hooks.md)) or inline in custom agent frontmatter via the `hooks` attribute (see [agents reference](./references/agents.md)).
-
-## Common Pitfalls
-
-**Description is the discovery surface.** The `description` field is how the agent decides whether to load a skill, instruction, or agent. If trigger phrases aren't IN the description, the agent won't find it. Use the "Use when..." pattern with specific keywords.
-
-**YAML frontmatter silent failures.** Unescaped colons in values, tabs instead of spaces, `name` that doesn't match folder name — all cause silent failures with no error message. Always quote descriptions that contain colons: `description: "Use when: doing X"`.
-
-**`applyTo: "**"` burns context.** This means "always included for every file request" — it loads the instruction into the context window on every interaction, even when irrelevant. Use specific globs (`**/*.py`, `src/api/**`) unless the instruction truly applies to all files.
+Перед змінами перевір кожен файл. Якщо файл уже існує, переглянь його та не перезаписуй без пояснення й підтвердження користувача. Якщо потрібні файли вже відповідають вимогам, залиш їх без змін. Повторний запуск не повинен створювати дублікати записів у `.gitignore` або втрачати наявні дані.
