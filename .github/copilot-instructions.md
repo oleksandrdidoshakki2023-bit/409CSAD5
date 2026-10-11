@@ -17,7 +17,7 @@ mvn -Dtest=BasicAdditionTest#addsTwoIntegers test
 mvn -Dtest=HelloWorldTest#returnsExpectedGreeting test
 ```
 
-The platform scripts run the full verification lifecycle: `ci.bat` on Windows and `bash ./ci.sh` on Linux/macOS. On Windows, `ci.bat` also checks `MAVEN_HOME` and common IntelliJ IDEA Maven locations when `mvn` is not on `PATH`.
+The platform scripts run the full verification lifecycle: `.\ci.bat` on Windows and `bash ./ci.sh` on Linux/macOS. On Windows, `ci.bat` also checks `MAVEN_HOME` and common IntelliJ IDEA Maven locations when `mvn` is not on `PATH`; Linux/macOS require Maven available on `PATH`.
 
 Run the application after packaging with:
 
