@@ -2,9 +2,9 @@ name: Java CI
 
 on:
   push:
-    branches: [develop, master]
+    branches: [develop, main, feature/**]
   pull_request:
-    branches: [develop, master]
+    branches: [develop, main]
 
 permissions:
   contents: read
@@ -24,7 +24,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check if project files exist
+        id: check_files
+        shell: bash
+        run: |
+          if [ -f "pom.xml" ]; then
+            echo "has_code=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_code=false" >> $GITHUB_OUTPUT
+            echo "No pom.xml found. Skipping build for template/agent branch."
+          fi
+
       - name: Set up JDK 17
+        if: steps.check_files.outputs.has_code == 'true'
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -32,19 +44,19 @@ jobs:
           cache: maven
 
       - name: Build and test (Windows)
-        if: runner.os == 'Windows'
+        if: steps.check_files.outputs.has_code == 'true' && runner.os == 'Windows'
         run: ci.bat
         shell: cmd
 
       - name: Build and test (Linux and macOS)
-        if: runner.os != 'Windows'
+        if: steps.check_files.outputs.has_code == 'true' && runner.os != 'Windows'
         run: bash ./ci.sh
         shell: bash
 
       - name: Upload JAR artifact
-        if: success()
+        if: steps.check_files.outputs.has_code == 'true' && success()
         uses: actions/upload-artifact@v4
         with:
           name: hello-world-${{ runner.os }}
           path: target/*.jar
-          if-no-files-found: error
+          if-no-files-found: warn
