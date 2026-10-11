@@ -29,7 +29,7 @@ description: "Use when creating or checking GitHub Actions CI for Windows, Linux
 
 Workflow повинен:
 
-- запускатися на `push` і `pull_request` до гілок `develop` та `master`;
+- запускатися на `push` і `pull_request` до гілок `develop` та `main`;
 - мати одну job із matrix для `ubuntu-latest`, `windows-latest` і `macos-latest`;
 - виконувати checkout і налаштовувати JDK 17;
 - для Windows запускати `ci.bat`, для Linux і macOS — `ci.sh`;
