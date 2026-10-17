@@ -1,0 +1,9 @@
+﻿..\tb\tb_i2c.vhd:109:9:@223010ns:(report note): PASS: T1 write 0x55: ACK received
+..\tb\tb_i2c.vhd:109:9:@223010ns:(report note): PASS: T1 slave rx_data = 0xA5
+..\tb\tb_i2c.vhd:109:9:@443830ns:(report note): PASS: T2 read 0x55: ACK received
+..\tb\tb_i2c.vhd:109:9:@443830ns:(report note): PASS: T2 master data_rd = 0x3C
+..\tb\tb_i2c.vhd:109:9:@574290ns:(report note): PASS: T3 write 0x23: NACK detected (ack_error=1)
+..\tb\tb_i2c.vhd:109:9:@574290ns:(report note): PASS: T3 slave rx_data unchanged
+..\tb\tb_i2c.vhd:109:9:@795110ns:(report note): PASS: T4 write 0x55: ACK received
+..\tb\tb_i2c.vhd:109:9:@795110ns:(report note): PASS: T4 slave rx_data = 0x05
+..\tb\tb_i2c.vhd:144:7:@795111ns:(report note): === ALL TESTS PASSED ===

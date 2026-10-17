@@ -1,0 +1,18 @@
+digraph M { rankdir=LR; bgcolor=white; node[shape=ellipse,style=filled,fillcolor="#e8f0fb",fontname="DejaVu Sans",fontsize=11]; edge[fontname="DejaVu Sans",fontsize=9];
+IDLE[shape=doublecircle,fillcolor="#d9ead3"];
+IDLE->IDLE[label="start=0"];
+IDLE->START[label="start=1 /\nshreg←addr&rw"];
+START->ADDR[label="SDA↓ при SCL=1,\nSCL↓"];
+ADDR->ADDR[label="bit_cnt>0 /\nзсув"];
+ADDR->ACK_ADDR[label="bit_cnt=0"];
+ACK_ADDR->STOP[label="SDA=1 (NACK) /\nack_error←1"];
+ACK_ADDR->WRITE[label="ACK, rw=0 /\nshreg←data_wr"];
+ACK_ADDR->READ[label="ACK, rw=1"];
+WRITE->WRITE[label="bit_cnt>0"];
+WRITE->ACK_DATA[label="bit_cnt=0"];
+ACK_DATA->STOP;
+READ->READ[label="bit_cnt>0 /\nshreg←shreg&SDA"];
+READ->MACK[label="bit_cnt=0"];
+MACK->STOP[label="NACK /\ndata_rd←shreg"];
+STOP->IDLE[label="SDA↑ при SCL=1 /\ndone←1"];
+}

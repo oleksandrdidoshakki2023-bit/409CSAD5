@@ -1,0 +1,6 @@
+tools/
+sim/*.vcd
+sim/*.cf
+sim/*.ghw
+syn/*.json
+syn/*.asc
