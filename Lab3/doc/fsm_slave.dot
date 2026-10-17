@@ -1,0 +1,16 @@
+digraph S { rankdir=LR; bgcolor=white; node[shape=ellipse,style=filled,fillcolor="#fbeee6",fontname="DejaVu Sans",fontsize=11]; edge[fontname="DejaVu Sans",fontsize=9];
+IDLE[shape=doublecircle,fillcolor="#d9ead3"];
+IDLE->ADDR[label="START"];
+ADDR->ADDR[xlabel="SCL↑ / прийом біта"];
+ADDR->IDLE[label="8 біт, адреса ≠ SLAVE_ADDR"];
+ADDR->ACK_ADDR[label="8 біт, адреса = SLAVE_ADDR /\nSDA←0 (ACK)"];
+ACK_ADDR->RX[label="SCL↓, R/W=0"];
+ACK_ADDR->TX[label="SCL↓, R/W=1 /\nshreg←tx_data"];
+RX->RX[xlabel="SCL↑ / прийом біта"];
+RX->ACK_RX[label="8 біт, SCL↓ /\nrx_data, rx_valid, ACK"];
+ACK_RX->RX[label="SCL↓"];
+TX->TX[label="SCL↓ / наступний біт"];
+TX->ACK_TX[label="8 біт передано"];
+ACK_TX->TX[label="ACK від Master"];
+ACK_TX->IDLE[label="NACK"];
+}

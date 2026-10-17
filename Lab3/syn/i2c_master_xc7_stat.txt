@@ -1,0 +1,27 @@
+
+3. Printing statistics.
+
+=== i2c_master ===
+
+   Number of wires:                140
+   Number of wire bits:            429
+   Number of public wires:          61
+   Number of public wire bits:     203
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                158
+     BUFG                            1
+     CARRY4                          4
+     FDRE                           46
+     FDSE                            3
+     IBUF                           21
+     INV                             6
+     LUT2                           12
+     LUT3                           11
+     LUT4                            9
+     LUT5                           14
+     LUT6                           15
+     MUXF7                           3
+     OBUF                           13
+

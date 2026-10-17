@@ -1,0 +1,28 @@
+
+3. Printing statistics.
+
+=== i2c_slave ===
+
+   Number of wires:                 82
+   Number of wire bits:           1246
+   Number of public wires:          21
+   Number of public wire bits:    1112
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                114
+     BUFG                            1
+     CARRY4                          1
+     FDRE                           32
+     FDSE                            1
+     IBUF                           12
+     INV                             2
+     LUT2                            3
+     LUT3                           13
+     LUT4                            4
+     LUT5                           11
+     LUT6                           15
+     MUXF7                           7
+     MUXF8                           1
+     OBUF                           11
+
